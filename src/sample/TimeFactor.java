@@ -9,9 +9,13 @@ public class TimeFactor extends Thread{
     protected int currentMinute;
     protected int currentHour;
     protected boolean running;
-    protected Calendar cal = Calendar.getInstance();
+    protected Calendar cal;
     public TimeFactor(int factor)
     {
+        this.cal = Calendar.getInstance();
+        this.currentHour = this.cal.get(Calendar.HOUR);
+        this.currentMinute = this.cal.get(Calendar.MINUTE);
+        this.currentSecond = this.cal.get(Calendar.SECOND);
         this.running = true;
         this.factor = factor;
         this.start();
@@ -38,8 +42,8 @@ public class TimeFactor extends Thread{
     }
 
     public double getAngle(){
-        double minutes  =    ((this.currentMinute * Constant.Angle.MINUTE * Math.PI)/180) - (Math.PI/2);
         double seconds  =    ((this.currentSecond * Constant.Angle.SECOND * Math.PI)/180) - (Math.PI/2);
+        double minutes  =    ((this.currentMinute * Constant.Angle.SECOND * Math.PI)/180) - (Math.PI/2);
         double hours    =    ((this.currentHour * Constant.Angle.MINUTE * Math.PI)/180) - (Math.PI/2);
         switch (this.factor) {
             case Constant.Time.SECOND:
